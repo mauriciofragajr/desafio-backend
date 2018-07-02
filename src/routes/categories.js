@@ -5,7 +5,6 @@ import categoryController from '../controllers/categoryController';
 
 categoriesRoute.get('/', categoryController.list);
 categoriesRoute.post('/', categoryController.create);
-categoriesRoute.put('/', categoryController.update);
-categoriesRoute.delete('/', categoryController.delete);
+categoriesRoute.delete('/:slug', categoryController.delete);
 
 export default categoriesRoute;

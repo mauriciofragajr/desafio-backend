@@ -1,16 +1,60 @@
 import Category from '../models/Category';
+import Post from '../models/Post';
 
 export default {
-    list: (req, res) => {
-        res.send("NOT IMPLEMENTED: Category list");
+    list: async (req, res) => {
+        try {
+            const categories = await Category.find();
+            return res.send({
+                categories,
+                results: categories.length
+            });
+        } catch (err) {
+            return res.status(400).send({
+                msg: 'Get failed',
+                err
+            });
+        };
     },
-    create: (req, res) => {
-        res.send("NOT IMPLEMENTED: Category create");
+    create: async (req, res) => {
+        try {
+            const category = await Category.create(req.body);
+            return res.send({
+                category
+            });
+        } catch (err) {
+            return res.status(400).send({
+                msg: 'Creation failed',
+                err,
+            });
+        };
     },
-    delete: (req, res) => {
-        res.send("NOT IMPLEMENTED: Category delete");
-    },
-    update: (req, res) => {
-        res.send("NOT IMPLEMENTED: Category update");
+    delete: async (req, res) => {
+        const category = await Category.findOne({ slug: req.params.slug });
+
+        if (!category) {
+            return res.send({
+                result: null,
+                message: "Not found"
+            });
+        }
+
+        const posts = await Post.find({ categories: category._id });
+
+        if (posts.length > 0) {
+            return res.send({
+                result: null,
+                message: "Category is already in use"
+            });
+        }
+
+        const result = await Category.findByIdAndDelete({
+            _id: category._id
+        });
+
+        return res.send({
+            result,
+            message: "Category deleted"
+        });
     }
 }

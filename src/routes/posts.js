@@ -3,7 +3,7 @@ let postsRoute = express.Router();
 
 import postController from '../controllers/postController';
 
-postsRoute.get('/', postController.list);
+postsRoute.get('/', postController.listAll);
 postsRoute.get('/:slug', postController.detail);
 postsRoute.get('/categories/:slug', postController.listByCategory);
 postsRoute.post('/', postController.create);

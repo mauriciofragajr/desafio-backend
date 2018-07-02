@@ -16,12 +16,15 @@ const PostSchema = new mongoose.Schema({
         unique: true,
         lowercase: true
     },
-    category: [{
+    categories: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category'
-    }],
-    timestamps
-});
+        ref: 'Category',
+        index: true
+    }]
+},
+    {
+        timestamps: {}
+    });
 
 const Post = mongoose.model('Post', PostSchema);
 
