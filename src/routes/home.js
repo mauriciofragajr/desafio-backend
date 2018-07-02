@@ -3,7 +3,7 @@ let homeRoute = express.Router();
 
 homeRoute.get('/', (req, res) => {
     res.status(200).send({
-        result: 'OK'
+        result: 'GG'
     })
 });
 
