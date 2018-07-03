@@ -1,7 +1,7 @@
 import Post from '../models/Post';
 import Category from '../models/Category';
 
-const PER_PAGE = 2;
+const PER_PAGE = 4;
 
 export default {
     listAll: async (req, res) => {
@@ -47,7 +47,7 @@ export default {
             // Usando a query principal.
             const posts = await Post.find(query).populate({
                 path: "categories"
-            }).skip(PER_PAGE * page - PER_PAGE).limit(PER_PAGE);
+            }).sort({ createdAt: 'desc' }).skip(PER_PAGE * page - PER_PAGE).limit(PER_PAGE);
 
             return res.send({
                 posts,

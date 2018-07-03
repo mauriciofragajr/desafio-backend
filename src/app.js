@@ -2,6 +2,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import * as dotenv from 'dotenv';
+import cors from 'cors';
 // ROUTES
 import homeRoute from './routes/home';
 import categoriesRoute from './routes/categories';
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+app.use(cors());
 
 app.use(log);
 app.use('/', homeRoute);
