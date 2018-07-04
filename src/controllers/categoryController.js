@@ -23,6 +23,13 @@ export default {
                 category
             });
         } catch (err) {
+            // alterar tratamento depois, código de erro do mongoose
+            if(err.code == 11000) {
+                return res.status(409).send({
+                    msg: 'Creation failed',
+                    err: 'Slug duplicated',
+                });
+            }
             return res.status(400).send({
                 msg: 'Creation failed',
                 err,

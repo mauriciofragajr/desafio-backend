@@ -150,6 +150,12 @@ export default {
                 post
             });
         } catch (err) {
+            if (err.code == 11000) {
+                return res.status(409).send({
+                    msg: 'Creation failed',
+                    err: 'Slug duplicated',
+                });
+            }
             return res.status(400).send({
                 msg: 'Creation failed',
                 err,
