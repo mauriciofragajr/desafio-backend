@@ -1,7 +1,7 @@
 import Post from '../models/Post';
 import Category from '../models/Category';
 
-const PER_PAGE = 4;
+const PER_PAGE = 5;
 
 export default {
     listAll: async (req, res) => {
